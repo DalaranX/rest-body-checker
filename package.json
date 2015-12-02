@@ -9,6 +9,10 @@
     "checker",
     "tv4"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DalaranX/rest-body-checker.git"
+  }
   "scripts": {
     "test": "istanbul cover _mocha"
   },
