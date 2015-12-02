@@ -1,0 +1,26 @@
+{
+  "name": "rest-body-checker",
+  "version": "0.0.1",
+  "description": "Check api arguments valid",
+  "main": "src/index.js",
+  "keywords": [
+    "rest",
+    "body",
+    "checker",
+    "tv4"
+  ],
+  "scripts": {
+    "test": "istanbul cover _mocha"
+  },
+  "author": "qinpengfei <qinpengfei.2008@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "node-dir": "^0.1.11",
+    "should": "^7.1.1",
+    "tv4": "^1.2.7"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.1"
+  }
+}
