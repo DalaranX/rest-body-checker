@@ -15,7 +15,10 @@ var schema ={
     minimum: 0,
     maximum: 10
   },
-  required: ["firstName", "lastName", "age"]
+  country: {
+    enum: ['cn', 'en']
+  },
+  required: ["firstName", "lastName", "age", "country"]
 }
 
 describe('Schema', function() {
@@ -33,7 +36,8 @@ describe('Schema', function() {
     var error = restBodyChecker.validate({
       firstName: "firstname",
       lastName: "lastName",
-      age: 10
+      age: 10,
+      country: 'en'
     }, schema);
     error.valid.should.equal(true);
     var fields = [];
@@ -46,7 +50,8 @@ describe('Schema', function() {
     var error = restBodyChecker.validate({
       firstName: 111,
       lastName: "lastName",
-      age: 10
+      age: 10,
+      country: 'en'
     }, schema);
     error.valid.should.equal(false);
     var fields = [];
@@ -55,6 +60,15 @@ describe('Schema', function() {
     });
     assert.equal(fields[0], "firstName");
     error.errors[0].msg.should.match(/number/);
+  })
+  it('Test parse object and enum type is wrong', function() {
+    var error = restBodyChecker.validate({
+      firstName: 111,
+      lastName: "lastName",
+      age: 10,
+      country: 'jp'
+    }, schema);
+    error.valid.should.equal(false);
   })
 })
 
