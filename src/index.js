@@ -33,8 +33,8 @@ module.exports = {
         key = err.dataPath.slice(1);
       }
       error.errors.push({
-        field: key,
-        msg: err.message
+        path: key,
+        message: err.message
       })
     })
     return error;

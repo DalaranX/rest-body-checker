@@ -28,7 +28,7 @@ describe('Schema', function() {
     error.valid.should.equal(false);
     var fields = [];
     _.each(error.errors, function(err) {
-      fields.push(err.field);
+      fields.push(err.path);
     });
     assert.equal(_.difference(fields, schema.required).length, 0);
   })
@@ -42,7 +42,7 @@ describe('Schema', function() {
     error.valid.should.equal(true);
     var fields = [];
     _.each(error.errors, function(err) {
-      fields.push(err.field);
+      fields.push(err.path);
     });
     assert.equal(fields.length, 0);
   })
@@ -56,10 +56,10 @@ describe('Schema', function() {
     error.valid.should.equal(false);
     var fields = [];
     _.each(error.errors, function(err) {
-      fields.push(err.field);
+      fields.push(err.path);
     });
     assert.equal(fields[0], "firstName");
-    error.errors[0].msg.should.match(/number/);
+    error.errors[0].message.should.match(/number/);
   })
   it('Test parse object and enum type is wrong', function() {
     var error = restBodyChecker.validate({
