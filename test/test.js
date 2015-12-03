@@ -61,6 +61,15 @@ describe('Schema', function() {
     assert.equal(fields[0], "firstName");
     error.errors[0].message.should.match(/number/);
   })
+  it('Test parse object and set language', function() {
+    var error = restBodyChecker.validate({
+      lastName: "lastName",
+      age: 10,
+      country: 'jp'
+    }, schema, 'zh-CN');
+    error.valid.should.equal(false);
+    error.errors[0].message.should.match(/缺少必要字段/);
+  })
   it('Test parse object and enum type is wrong', function() {
     var error = restBodyChecker.validate({
       firstName: 111,
