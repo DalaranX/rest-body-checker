@@ -1,17 +1,22 @@
-var tv      = require('tv4')
-var path    = require('path')
-var fs      = require('fs')
-var _       = require('lodash')
+var tv      = require('tv4');
+var path    = require('path');
+var fs      = require('fs');
+var _       = require('lodash');
+var tv4formats = require('./tv4-formats');
 
-var files = fs.readdirSync(__dirname + '/lang')
-files.forEach(function(file) {
-  var name = path.basename(file, '.js');
-  tv.addLanguage(name, require(__dirname + "/lang/" + file))
-})
+function init(tv4) {
+  var files = fs.readdirSync(__dirname + '/lang');
+  files.forEach(function(file) {
+    var name = path.basename(file, '.js');
+    tv4.addLanguage(name, require(__dirname + "/lang/" + file))
+  })
+  tv4.addFormat(tv4formats);
+}
 
 module.exports = {
   validate: function(data, schema, lang) {
     tv4 = tv.freshApi()
+    init(tv4)
     tv4.language(lang || 'cn')
     var schema = {
       required: schema.required,

@@ -79,5 +79,33 @@ describe('Schema', function() {
     }, schema);
     error.valid.should.equal(false);
   })
+  it('Test date format', function() {
+    var schema = {
+      startDate: {
+        type: 'string',
+        format: 'date'
+      },
+      required: ['startDate']
+    };
+    var err = restBodyChecker.validate({}, schema)
+    err.valid.should.equal(false);
+    err = restBodyChecker.validate({'startDate': '2014-02-11'}, schema)
+    err.valid.should.equal(true);
+    err = restBodyChecker.validate({'startDate': '2015-10-29T16:00:00.000Z'}, {startDate: {type: 'string', format: 'datetime'}})
+    err.valid.should.equal(true);
+  })
+  it('Test email format', function() {
+    var schema = {
+      email: {
+        type: 'string',
+        format: 'email'
+      },
+      required: ['email']
+    };
+    var err = restBodyChecker.validate({'email': 'test'}, schema)
+    err.valid.should.equal(false);
+    err = restBodyChecker.validate({'email': 'test@gmail.com'}, schema)
+    err.valid.should.equal(true);
+  })
 })
 
